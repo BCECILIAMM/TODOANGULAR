@@ -13,20 +13,20 @@
   <p>la suma de 3 + 3 es {{3 + 3 }}</p>
   <p>Hola soy {{ name() }} y Tengo {{ age }}</p>
   <hr>
-  <img [src]="persona.img" alt="">
-  <input type="number" [value]="persona.age">
+  <img [src]="persona().img" alt="">
+  <input type="number" [value]="persona().age">
   <button [disabled]="disabled">Click me</button>
-  <p>person: {{persona.name}}</p>
+  <p>person: {{persona().name}}</p>
 
 
   <button (click)="clickHandler()">click me</button>
   <button (dblclick)="clickHandler()">click me</button>
   <p>(Change)</p>
-  <input type="number" [value]="persona.age" (change)="changeHandler($event)">
+  <input type="number" [value]="persona().age" (change)="changeHandler($event)">
   <p>(Keydown)</p>
-  <input type="text" [value]="persona.name" (keydown)="keydownHandler($event)">
+  <input type="text" [value]="persona().name" (keydown)="keydownHandler($event)">
   <p>(Keydown)</p>
-  <input type="text" [value]="persona.name" (keydown.shift-t)="keydownHandler($event)">
+  <input type="text" [value]="persona().name" (keydown.shift-t)="keydownHandler($event)">
   <p>(Signal)</p>
   <input type="text" [value]="name()" (change)="changeHandler($event)">
   <P>TOTAL: {{tasks().length}}</P>
@@ -35,7 +35,30 @@
       {{i}} {{ task }}
     </li>
   </ul>
+  <hr>
+
+  <input type="number" [value]="persona().age" (change)="changeAge($event)">
+
+  <div *ngIf="persona().name === 'Nicolas' && persona().age > 18; else mibloque">
+    soy mayor de 18
+  </div>
+  <ng-template #mibloque>
+    soy menor de 18
+  </ng-template>
 
 
+<hr>
+<input type="text" [value]="persona().name" (change)="changeName($event)">
+<div [ngSwitch]="persona().name">
+  <p *ngSwitchCase="'Nicolas'">Yo soy Nicolas</p>
+  <p *ngSwitchCase="'Julian'">Yo soy Julian</p>
+  <p *ngSwitchCase="'Ana'">Yo soy Ana</p>
+  <p *ngSwitchCase="'Valentina'">Yo soy Valentina</p>
+  <p *ngSwitchDefault> Yo no soy nadie</p>
+</div>
+<hr>
+
+<input type="color" [formControl]="colorCtrl">
+<p>color: {{ colorCtrl.value }}</p>
 
 </div>
