@@ -280,6 +280,7 @@
   position: absolute;
   right: 0;
   left: 0;
+  cursor: pointer
 }
 
 .filters li {
@@ -301,6 +302,7 @@
 
 .filters li a.selected {
   border-color: #4c33b1;
+
 }
 
 .clear-completed,
