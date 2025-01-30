@@ -3,9 +3,11 @@
   <h2>{{ title }}</h2>
 
   <ul>
-    <li *ngFor="let task of tasks()">
+    @for (task of tasks(); track task) {
+    <li>
       {{ task }}
     </li>
+    }
   </ul>
 
   <hr>
@@ -31,55 +33,154 @@
   <input type="text" [value]="name()" (change)="changeHandler($event)">
   <P>TOTAL: {{tasks().length}}</P>
   <ul>
-    <li *ngFor="let task of tasks(); index as i">
+    @for (task of tasks(); track task; let i = $index) {
+    <li>
       {{i}} {{ task }}
     </li>
+    }
   </ul>
   <hr>
 
+  <!-- NUEVA SINTAXIS DE ANGULAR -->
+  <h2>NOMBRE</h2>
+  @if (name() === 'julian') {
+  <div>Soy Nicolas</div>
+  }
+
+
   <input type="number" [value]="persona().age" (change)="changeAge($event)">
 
-  <div *ngIf="persona().name === 'Nicolas' && persona().age > 18; else mibloque">
+  @if (persona().name === 'Nicolas' && persona().age > 18) {
+  <div>
     soy mayor de 18
   </div>
-  <ng-template #mibloque>
-    soy menor de 18
-  </ng-template>
+  } @else {
+  soy menor de 18
+  }
 
 
-<hr>
-<input type="text" [value]="persona().name" (change)="changeName($event)">
-<div [ngSwitch]="persona().name">
-  <p *ngSwitchCase="'Nicolas'">Yo soy Nicolas</p>
-  <p *ngSwitchCase="'Julian'">Yo soy Julian</p>
-  <p *ngSwitchCase="'Ana'">Yo soy Ana</p>
-  <p *ngSwitchCase="'Valentina'">Yo soy Valentina</p>
-  <p *ngSwitchDefault> Yo no soy nadie</p>
-</div>
-<hr>
+  <h2>If else new</h2>
 
-<input type="color" [formControl]="colorCtrl">
-<p>color: {{ colorCtrl.value }}</p>
 
-<svg>
-  <g>
-    <rect x="0" y="0" height="100" width="100%" [attr.fill]="colorCtrl.value"/>
-  </g>
-</svg>
-<hr>
+  @if (persona().name === 'Nicolas' && persona().age > 18) {
+  <div>Soy Nicolas y soy mayor de 18</div>
+  } @else {
+  <div>Soy Nicolas y soy menor de 18</div>
+  }
 
-<input type="number" [formControl]="widthCtrl">
-<span class="box" [style.width.px]="widthCtrl.value"></span>
+  <h2>For now</h2>
+  <ul>
+    @for (task of tasks(); track task; let i = $index) {
+    <li>
+      {{i}} {{ task }}
+    </li>
+    }
+  </ul>
 
-<hr>
+  <!-- El elemento padre debe ir afuera como lo puedes ver en el UL -->
+  <!-- El empty es si esa lista esta en vacío -->
+  <ul>
 
-<p>
-  <input type="text" [formControl]="nameCtrl"> <br>
-  <span class="message-err" [class.show]="nameCtrl.invalid && nameCtrl.touched">Nombre Invalido</span>
-</p>
+    @for(task of tasks(); track task; let i = $index){
+    <li>{{ i }}{{ task }} </li>
+    } @empty {
+    <li><strong>La lista esta en vacío</strong></li>
+    }
+  </ul>
 
-<p>
-  <input type="text">
-</p>
+  <h2>ngSwitch new</h2>
+
+  <hr>
+  <input type="text" [value]="persona().name" (change)="changeName($event)">
+  <div>
+    @switch (persona().name) {
+    @case ('Nicolas') {
+    <p>Yo soy Nicolas</p>
+    }
+    @case ('Julian') {
+    <p>Yo soy Julian</p>
+    }
+    @case ('Ana') {
+    <p>Yo soy Ana</p>
+    }
+    @case ('Valentina') {
+    <p>Yo soy Valentina</p>
+    }
+    @default {
+    <p> Yo no soy nadie</p>
+    }
+    }
+  </div>
+  <hr>
+
+  <div>
+
+    @switch (persona().name) {
+    @case ('Nicolas') {
+    <p>Soy Nicolas</p>
+    }
+    @case ('Julian') {
+    <p>Soy Julian</p>
+    }
+    @case ('Ana') {
+    <p>Soy Ana</p>
+    }
+    @case ('Valentina') {
+    <p>Soy Valentina</p>
+    }
+    @default {
+    <p>No soy nadie</p>
+    }
+    }
+  </div>
+
+
+
+  <hr>
+  <input type="text" [value]="persona().name" (change)="changeName($event)">
+  <div>
+    @switch (persona().name) {
+    @case ('Nicolas') {
+    <p>Yo soy Nicolas</p>
+    }
+    @case ('Julian') {
+    <p>Yo soy Julian</p>
+    }
+    @case ('Ana') {
+    <p>Yo soy Ana</p>
+    }
+    @case ('Valentina') {
+    <p>Yo soy Valentina</p>
+    }
+    @default {
+    <p> Yo no soy nadie</p>
+    }
+    }
+  </div>
+  <hr>
+
+  <input type="color" [formControl]="colorCtrl">
+  <p>color: {{ colorCtrl.value }}</p>
+
+  <svg>
+    <g>
+      <rect x="0" y="0" height="100" width="100%" [attr.fill]="colorCtrl.value" />
+    </g>
+  </svg>
+  <hr>
+
+  <input type="number" [formControl]="widthCtrl">
+  <span class="box" [style.width.px]="widthCtrl.value"></span>
+
+  <hr>
+
+  <p>
+    <input type="text" [formControl]="nameCtrl"> <br>
+    <span class="message-err" [class.show]="nameCtrl.invalid && nameCtrl.touched">Nombre Invalido</span>
+  </p>
+
+  <!-- <p>
+                    <input type="text">
+                  </p> -->
 
 </div>
